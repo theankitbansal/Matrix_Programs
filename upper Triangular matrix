@@ -1,0 +1,73 @@
+#include <iostream>
+
+using namespace std;
+
+class upperTriangular{
+  private:
+    int *A;
+    int n;
+  public:
+    upperTriangular(){
+        n=2;
+        A=new int[3];
+    }
+    upperTriangular(int n){
+        this->n=n;
+        A=new int[(n*(n+1))/2];
+    }
+    
+    void set(int i, int j, int x);
+    int get(int i, int j);
+    void Display();
+    ~upperTriangular(){
+        delete []A;
+    }
+};
+
+int main()
+{
+    int d;
+    cout<<"Enter the dimensions: ";
+    cin>>d;
+    upperTriangular ut(d);
+    int x;
+    cout<<"Enter all elements: ";
+    for(int i=1; i<=d; i++){
+        for(int j=1; j<=d; j++){
+                cin>>x;
+                ut.set(i,j,x);
+        }
+    }
+    
+    ut.Display();
+
+    return 0;
+}
+
+void upperTriangular::set(int i, int j, int x){
+    if(j>=i){
+        A[((j*(j-1))/2)+i-1]=x;
+    }
+}
+
+int upperTriangular::get(int i, int j){
+    if(j>=i)
+    {
+        return A[((j*(j-1))/2)+i-1];
+    }else{
+        return 0;
+    }
+}
+
+void upperTriangular::Display(){
+    for(int i=0; i<=n; i++){
+        for(int j=1; j<=n; j++){
+            if(j>=i){
+                cout<< A[((j*(j-1))/2)+i-1]<<" ";
+            }else{
+                cout<<"0 ";
+            }
+        }
+        cout<<endl;
+    }
+}
